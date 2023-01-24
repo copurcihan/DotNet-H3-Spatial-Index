@@ -1,0 +1,189 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "NetTopologySuite/2.5.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/NetTopologySuite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NetTopologySuite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "pocketken.H3/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NetTopologySuite": "2.5.0"
+        },
+        "compile": {
+          "lib/net6.0/pocketken.H3.dll": {
+            "related": ".4.0.0.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/pocketken.H3.dll": {
+            "related": ".4.0.0.xml"
+          }
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "DotNetH3/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "pocketken.H3": "4.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DotNetH3.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DotNetH3.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NetTopologySuite/2.5.0": {
+      "sha512": "5/+2O2ADomEdUn09mlSigACdqvAf0m/pVPGtIPEPQWnyrVykYY0NlfXLIdkMgi41kvH9kNrPqYaFBTZtHYH7Xw==",
+      "type": "package",
+      "path": "nettopologysuite/2.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/netstandard2.0/NetTopologySuite.dll",
+        "lib/netstandard2.0/NetTopologySuite.xml",
+        "nettopologysuite.2.5.0.nupkg.sha512",
+        "nettopologysuite.nuspec"
+      ]
+    },
+    "pocketken.H3/4.0.0": {
+      "sha512": "cchud9Atak0l9VUPmLxR8CNC1rV0Hr+ZNWEypAiukzYJEBd1bZ53JJ/ihHBRO96lqDFC67XnJxbI2MDt4MyGDw==",
+      "type": "package",
+      "path": "pocketken.h3/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net6.0/pocketken.H3.4.0.0.xml",
+        "lib/net6.0/pocketken.H3.dll",
+        "lib/netstandard2.0/pocketken.H3.4.0.0.xml",
+        "lib/netstandard2.0/pocketken.H3.dll",
+        "lib/netstandard2.1/pocketken.H3.4.0.0.xml",
+        "lib/netstandard2.1/pocketken.H3.dll",
+        "pocketken.h3.4.0.0.nupkg.sha512",
+        "pocketken.h3.nuspec"
+      ]
+    },
+    "System.Memory/4.5.4": {
+      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "type": "package",
+      "path": "system.memory/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.4.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "DotNetH3/1.0.0": {
+      "type": "project",
+      "path": "../DotNetH3/DotNetH3.csproj",
+      "msbuildProject": "../DotNetH3/DotNetH3.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "DotNetH3 >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/cihan.copur/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/SandBox/SandBox.csproj",
+      "projectName": "SandBox",
+      "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/SandBox/SandBox.csproj",
+      "packagesPath": "/Users/cihan.copur/.nuget/packages/",
+      "outputPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/SandBox/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/cihan.copur/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {
+            "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj": {
+              "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
