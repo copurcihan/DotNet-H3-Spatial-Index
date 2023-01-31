@@ -33,21 +33,18 @@ One of the most common use cases of H3 spatial indexing is in location-based ser
 ℹ️ **Flexible spatial resolution:** The resolution of the grid can be adjusted to match the requirements of the application. For example, a higher resolution can be used for small areas while a lower resolution can be used for larger areas.<br/><br/>
 ℹ️ **Compact storage:** The index of a cell takes up just a few bytes, making it well-suited for applications that need to store large amounts of data.
 
-## ❓ Does GeoJSON Support Styling?
-ℹ️ GeoJSON does not have any in-built styling, if you want to style the features in a GeoJSON file, you have to do it separately, most web mapping libraries have built-in methods for styling GeoJSON data, or you can use third-party libraries like turf.js to manipulate and style the data.
+## ❓ How Can We Use H3 Spatial Index For The Micro Mobility Industry?
+ℹ️ H3 could be used to index and query data on the location of scooters, bicycles, or other forms of micro mobility.<br/><br/>
+ℹ️ This could be used to help optimize routing and dispatching of vehicles, as well as to better understand patterns of usage and demand. <br/><br/>
+ℹ️ Additionally, H3 could be used to generate heatmaps of usage, or to perform spatial analytics on micro mobility data. <br/><br/>
+ℹ️ H3 is a powerful and flexible spatial indexing library that can be useful in a wide range of applications, including the micromobility industry.<br/><br/>
+ℹ️ It can help companies optimize their operations, better understand usage patterns, and make data-driven decisions. <br/><br/>
+ℹ️ It's an open-source library, which means it can be easily integrated into existing systems and can be customized to meet specific needs.<br/><br/>
+ℹ️ It's worth noting that, its use is not limited to micromobility industry and it can be used in other industry as well such as logistics, urban planning, and real-estate. <br/><br/>
 
-## ❓ Where Can I Store GeoJSON Data?
-There are several options for storing GeoJSON data, depending on your specific use case and requirements. Some popular options include:<br/><br/>
+# 📑 API Reference
 
-ℹ️ **NoSQL Database:** You can store the GeoJSON data in a NoSQL database, such as MongoDB or Couchbase. This option provides high scalability and performance for handling large amounts of data, and it also allows for flexible schema design and easy integration with other data sources.<br/><br/>
-ℹ️ **File System:** You can simply store the GeoJSON data as a file on your local file system or on a remote server. This is a simple and straightforward option, but it may not be the most efficient or scalable solution for large amounts of data.<br/><br/>
-ℹ️ **Relational Database:** You can store the GeoJSON data in a relational database, such as PostgreSQL with PostGIS extension or MySQL with spatial extension. This option allows you to easily query and update the data, and it also provides support for spatial indexes, which can improve performance when working with large amounts of data.<br/><br/>
-ℹ️ **Cloud-based storage and databases:** You can store the GeoJSON data in cloud-based storage services like Amazon S3 or Google Cloud Storage, and you can use cloud-based databases like Amazon RDS, Google Cloud SQL, MongoDB Atlas, AWS DynamoDB, and many more. This option provides scalability, high availability, and easy integration with other cloud-based services.<br/><br/>
-ℹ️ **Spatial Data Warehouses:** You can store the GeoJSON data in Spatial Data Warehouses like Amazon Redshift, Google BigQuery, Microsoft Azure Synapse Analytics, and many more. This option allows you to store and analyze large amount of data easily, providing tools for spatial analysis, data visualization and reporting.<br/><br/>
-
-Ultimately, the best option for storing GeoJSON data will depend on the specific requirements of your use case, including the size and complexity of the data, the required performance and scalability, and the available resources and budget.
-
-## ❓ What Are The Geometry Types?
+## 🔖 Indexing
 In GeoJSON, the "geometry" field describes the shape of a feature, and it must contain a "type" field that specifies the type of geometry. The following are the different types of geometry that can be used in GeoJSON:
 
 ### 1. Point
