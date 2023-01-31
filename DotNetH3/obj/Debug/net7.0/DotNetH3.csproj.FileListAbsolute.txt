@@ -27,3 +27,17 @@
 /Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/obj/Debug/net7.0/refint/DotNetH3.dll
 /Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/obj/Debug/net7.0/DotNetH3.pdb
 /Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/obj/Debug/net7.0/ref/DotNetH3.dll
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/bin/Debug/net7.0/DotNetH3.deps.json
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/bin/Debug/net7.0/DotNetH3.dll
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/bin/Debug/net7.0/DotNetH3.pdb
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/bin/Debug/net7.0/DotNetGeoJSON.pdb
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.csproj.AssemblyReference.cache
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.GeneratedMSBuildEditorConfig.editorconfig
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.AssemblyInfoInputs.cache
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.AssemblyInfo.cs
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.csproj.CoreCompileInputs.cache
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.csproj.CopyComplete
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.dll
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/refint/DotNetH3.dll
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/DotNetH3.pdb
+/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/Debug/net7.0/ref/DotNetH3.dll

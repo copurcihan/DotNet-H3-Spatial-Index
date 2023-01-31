@@ -6,6 +6,30 @@ using DotNetGeoJSON.Models;
 using DotNetGeoJSON.Models.GeometryModels;
 using DotNetH3;
 using DotNetH3.Models.Gis;
+using SandBox;
+
+var pointGeoJsonAsFeature= JsonSerializer.Serialize(GeoJsonCreator.CreateExamplePointGeoJsonAsFeature());
+var pointGeoJsonAsFeatureList = JsonSerializer.Serialize(GeoJsonCreator.CreateExamplePointGeoJsonAsFeatureList());
+var lineStringGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.CreateExampleLineStringGeoJsonAsFeature());
+var polygonGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.CreateExamplePolygonGeoJsonAsFeature());
+var multiPolygonGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.CreateExampleMultiPolygonGeoJsonAsFeature());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 string a=DotNetH3.H3.LatLongToCell(37.0326897,30.6217852,6);

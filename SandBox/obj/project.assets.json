@@ -132,11 +132,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/SandBox/SandBox.csproj",
+      "projectUniqueName": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/SandBox/SandBox.csproj",
       "projectName": "SandBox",
-      "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/SandBox/SandBox.csproj",
+      "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/SandBox/SandBox.csproj",
       "packagesPath": "/Users/cihan.copur/.nuget/packages/",
-      "outputPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/SandBox/obj/",
+      "outputPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/SandBox/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/cihan.copur/.nuget/NuGet/NuGet.Config"
@@ -151,8 +151,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj": {
-              "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj"
+            "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/DotNetH3.csproj": {
+              "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/DotNetH3.csproj"
             }
           }
         }

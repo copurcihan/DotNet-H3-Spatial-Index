@@ -114,11 +114,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj",
+      "projectUniqueName": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/DotNetH3.csproj",
       "projectName": "DotNetH3",
-      "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj",
+      "projectPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/DotNetH3.csproj",
       "packagesPath": "/Users/cihan.copur/.nuget/packages/",
-      "outputPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/obj/",
+      "outputPath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/cihan.copur/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7lPKG82/j+W7LYS7mfoXTEu+jeSfB3rGbutBRiS43ihPzgfWRnUBPjlodtFCAK2EHK1qo3vFurSLk7qYesvd9w==",
+  "dgSpecHash": "Ah9L2exWEJNiVpkC/3SRW6cbdI3cjkmPOVq8PFrS+hxuzuUUaOSVGuS/xv1pO0sZirB0D/bZK+tiAw+KCh5ILw==",
   "success": true,
-  "projectFilePath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNetH3/DotNetH3/DotNetH3.csproj",
+  "projectFilePath": "/Users/cihan.copur/Desktop/GitHub-Personal/DotNet-H3-Spatial-Index/DotNetH3/DotNetH3.csproj",
   "expectedPackageFiles": [
     "/Users/cihan.copur/.nuget/packages/nettopologysuite/2.5.0/nettopologysuite.2.5.0.nupkg.sha512",
     "/Users/cihan.copur/.nuget/packages/pocketken.h3/4.0.0/pocketken.h3.4.0.0.nupkg.sha512",
