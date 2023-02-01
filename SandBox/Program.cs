@@ -14,7 +14,7 @@ var lineStringGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.CreateE
 var polygonGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.CreateExamplePolygonGeoJsonAsFeature());
 var multiPolygonGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.CreateExampleMultiPolygonGeoJsonAsFeature());
 
-
+var h3Index = DotNetH3.H3.LatLongToCell(41.02652937773024, 29.12017270259408, 9);
 
 
 
