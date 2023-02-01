@@ -16,7 +16,9 @@ var multiPolygonGeoJsonAsFeature = JsonSerializer.Serialize(GeoJsonCreator.Creat
 
 var h3Index = DotNetH3.H3.LatLongToCell(41.02652937773024, 29.12017270259408, 9);
 
+var latLong = DotNetH3.H3.CellToLatLong("891ec915c07ffff");
 
+var polygon = JsonSerializer.Serialize(DotNetH3.H3.CellToBoundaryAsGeoJson("891ec915c07ffff"));
 
 
 
