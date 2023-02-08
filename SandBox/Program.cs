@@ -36,6 +36,8 @@ var faces= DotNetH3.H3.GetIcosahedronFaces("891ec915c07ffff");
 
 var cells = JsonSerializer.Serialize(DotNetH3.H3.GridDiskDistances("891ec915c07ffff",2));
 
+cells = JsonSerializer.Serialize(DotNetH3.H3.GridRing("891ec915c07ffff",2));
+
 
 
 
