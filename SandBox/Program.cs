@@ -42,6 +42,8 @@ var distance= DotNetH3.H3.GridDistance("891ec915c1bffff","891ec915c37ffff");
 
 cells = JsonSerializer.Serialize(DotNetH3.H3.GridPathCell("891ec915c1bffff","891ec915c37ffff"));
 
+var parent=JsonSerializer.Serialize(DotNetH3.H3.CellToParent("891ec915c07ffff",7));
+
 
 
 
