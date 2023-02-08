@@ -56,6 +56,4 @@ for (int i = 0; i < ((Polygon)(feature.geometry)).coordinates[0].Count; i++)
     coordinates.Add(new LatLong(((Polygon)(feature.geometry)).coordinates[0][i][1],
         ((Polygon)(feature.geometry)).coordinates[0][i][0]));
 }
-var region=JsonSerializer.Serialize(DotNetH3.H3.PolygonToCells(coordinates,9,vertexTestMode:0));
-
-Console.WriteLine("OKEY");
+var region=JsonSerializer.Serialize(DotNetH3.H3.PolygonToCells(coordinates,9,vertexMode:0));

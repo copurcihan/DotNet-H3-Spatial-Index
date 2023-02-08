@@ -9,14 +9,14 @@ namespace DotNetH3;
 
 public static partial class H3
 {
-    public static GeoJSON? PolygonToCells(List<LatLong> coordinates, int resolution, int vertexTestMode)
+    public static GeoJSON? PolygonToCells(List<LatLong> coordinates, int resolution, int vertexMode)
     {
         try
         {
             var polygon = coordinates.GetPolygon();
             if (polygon != null)
             {
-                var result = polygon.Fill(resolution, (VertexTestMode)vertexTestMode).ToList();
+                var result = polygon.Fill(resolution, (VertexTestMode)vertexMode).ToList();
                 var geoJson = new GeoJSON();
 
                 var geometry = new Polygon(new LineStrings(polygon.GetBoundaryPoints()));
