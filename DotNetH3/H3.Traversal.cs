@@ -33,7 +33,6 @@ public static partial class H3
 
         return null;
     }
-
     public static GeoJSON? GridRing(string h3Index, int k)
     {
         try
@@ -57,7 +56,6 @@ public static partial class H3
 
         return null;
     }
-
     public static int GridDistance(string h3Index, string h3OtherIndex)
     {
         try
@@ -71,7 +69,6 @@ public static partial class H3
 
         return -1;
     }
-
     public static GeoJSON? GridPathCell(string h3Index, string h3OtherIndex)
     {
         try

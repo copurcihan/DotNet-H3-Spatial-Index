@@ -20,8 +20,21 @@ var latLong = DotNetH3.H3.CellToLatLong("891ec915c07ffff");
 
 var polygon = JsonSerializer.Serialize(DotNetH3.H3.CellToBoundaryAsGeoJson("891ec915c07ffff"));
 
+var resolution = DotNetH3.H3.GetResolution("891ec915c07ffff");
 
+var baseCellNumber= DotNetH3.H3.GetBaseCellNumber("891ec915c07ffff");
 
+var h3IndexObject= DotNetH3.H3.StringToH3("891ec915c07ffff");
+
+h3Index= DotNetH3.H3.H3ToString(h3IndexObject);
+
+var isValid= DotNetH3.H3.IsValidCell("891ec915c07ffff");
+
+var isPentagon= DotNetH3.H3.IsPentagon("891ec915c07ffff");
+
+var faces= DotNetH3.H3.GetIcosahedronFaces("891ec915c07ffff");
+
+var cells = JsonSerializer.Serialize(DotNetH3.H3.GridDiskDistances("891ec915c07ffff",2));
 
 
 
