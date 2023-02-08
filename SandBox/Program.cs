@@ -38,6 +38,9 @@ var cells = JsonSerializer.Serialize(DotNetH3.H3.GridDiskDistances("891ec915c07f
 
 cells = JsonSerializer.Serialize(DotNetH3.H3.GridRing("891ec915c07ffff",2));
 
+var distance= DotNetH3.H3.GridDistance("891ec915c1bffff","891ec915c37ffff");
+
+cells = JsonSerializer.Serialize(DotNetH3.H3.GridPathCell("891ec915c1bffff","891ec915c37ffff"));
 
 
 
@@ -60,7 +63,7 @@ var resultt=DotNetH3.H3.GridDiskDistances(a,2);
 jsonString = JsonSerializer.Serialize(resultt);
 resultt=DotNetH3.H3.GridRing(a,2);
 jsonString = JsonSerializer.Serialize(resultt);
-var distance=DotNetH3.H3.GridDistance("863f6eaf7ffffff","863f6ead7ffffff");
+distance=DotNetH3.H3.GridDistance("863f6eaf7ffffff","863f6ead7ffffff");
 var path=DotNetH3.H3.GridPathCell("863f6eaf7ffffff","863f6ea4fffffff");
 jsonString = JsonSerializer.Serialize(path);
 var feature=DotNetH3.H3.CellToParent("863f6eaf7ffffff",3);
