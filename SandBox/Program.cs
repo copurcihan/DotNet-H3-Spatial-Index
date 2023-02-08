@@ -46,6 +46,8 @@ var parent=JsonSerializer.Serialize(DotNetH3.H3.CellToParent("891ec915c07ffff",7
 
 var centerChild=JsonSerializer.Serialize(DotNetH3.H3.CellToCenterChild("891ec915c07ffff",9));
 
+var childrenCells=JsonSerializer.Serialize(DotNetH3.H3.CellToChildren("891ec915c07ffff",10));
+
 
 
 
