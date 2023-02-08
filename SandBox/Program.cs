@@ -44,6 +44,8 @@ cells = JsonSerializer.Serialize(DotNetH3.H3.GridPathCell("891ec915c1bffff","891
 
 var parent=JsonSerializer.Serialize(DotNetH3.H3.CellToParent("891ec915c07ffff",7));
 
+var centerChild=JsonSerializer.Serialize(DotNetH3.H3.CellToCenterChild("891ec915c07ffff",9));
+
 
 
 
