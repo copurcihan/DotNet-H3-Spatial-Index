@@ -15,7 +15,8 @@
 ## ❓[What Is H3 Geospatial H3 Index][h3-index]
 ℹ️ H3 is a hierarchical spatial indexing system that can be used to efficiently index and query points in space.<br/><br/>
 ℹ️ It uses a hexagonal grid to divide the Earth's surface into a series of nested cells, each with a unique index.<br/><br/>
-ℹ️ This allows for efficient spatial queries, such as finding all points within a certain radius of a given point, or all points within a specific hexagonal cell.
+ℹ️ This allows for efficient spatial queries, such as finding all points within a certain radius of a given point, or all points within a specific hexagonal cell.<br/><br/>
+ℹ️ [You should analyze Tables of Cell Statistics to understand easily H3 Spatial Index Concept][cell-stats]
 
 ## ❓ Where To Use H3 Spatial Index?
 ℹ️ Geospatial analysis and mapping<br/><br/>
@@ -41,461 +42,256 @@ One of the most common use cases of H3 spatial indexing is in location-based ser
 ℹ️ It can help companies optimize their operations, better understand usage patterns, and make data-driven decisions. <br/><br/>
 ℹ️ It's an open-source library, which means it can be easily integrated into existing systems and can be customized to meet specific needs.<br/><br/>
 ℹ️ It's worth noting that, its use is not limited to micromobility industry and it can be used in other industry as well such as logistics, urban planning, and real-estate. <br/><br/>
-
+![N|Solid][aggregation]
+- This property allows for simpler analysis of movement. Hexagons have the property of expanding rings of neighbors approximating circles:
+![N|Solid][hexagon]
+- Hexagons are also optimally space-filling. On average, a polygon may be filled with hexagon tiles with a smaller margin of error than would be present with square tiles.
 # 📑 API Reference
 
 ## 🔖 Indexing
-In GeoJSON, the "geometry" field describes the shape of a feature, and it must contain a "type" field that specifies the type of geometry. The following are the different types of geometry that can be used in GeoJSON:
+These functions are used for finding the H3 cell index containing coordinates, and for finding the center and boundary of H3 indexes.
 
-### 1. Point
-- A single point in space represented by a set of coordinates (longitude, latitude).
-- ✔️ Supported By DotNet-GeoJSON<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/SFA_Point.svg/102px-SFA_Point.svg.png)
-
-**[You can copy & past example GeoJSONs to see outputs on the map: GeoJSON.io][geojson-io]**
-- Here is an example of a simple GeoJSON file that represents a point location of the Empire State Building in New York City:
+### ⚓ LatLongToCell
+- Indexes the location at the specified resolution, returning the index of the cell containing the location. This buckets the geographic point into the H3 grid.
+- **int resolution:** 0 to 15, H3 supports sixteen resolutions. Each finer resolution has cells with one seventh the area of the coarser resolution. Hexagons cannot be perfectly subdivided into seven hexagons, so the finer cells are only approximately contained within a parent cell.
 ```
+string LatLongToCell(double latitude, double longtitude, int resolution)
+```
+**Sample Usage**
+```
+var h3Index = DotNetH3.H3.LatLongToCell(41.02652937773024, 29.12017270259408, 9);
+
+//Returned value: h3Index="891ec915c07ffff";
+```
+**Output**
+![N|Solid][binbin-hq]
+
+### ⚓ CellToLatLong
+- Finds the center of the cell in grid space.
+
+```
+LatLong CellToLatLong(string h3Index)
+```
+**Sample Usage**
+```
+var latLong = DotNetH3.H3.CellToLatLong("891ec915c07ffff");
+```
+### ⚓ CellToBoundaryAsGeoJson
+- Finds the boundary of the cell and return as GeoJSON Polygon.
+
+```
+GeoJSON? CellToBoundaryAsGeoJson(string h3Index)
+```
+**Sample Usage**
+```
+var polygon = DotNetH3.H3.CellToBoundaryAsGeoJson("891ec915c07ffff");
+```
+**Output**
+![N|Solid][binbin-hq-geojson]
+
+## 🔖 Inspection
+These functions provide metadata about an H3 index, such as its resolution or base cell, and provide utilities for converting into and out of the 64-bit representation of an H3 index.
+
+### ⚓ GetResolution
+- Returns the resolution of the index.
+```
+int GetResolution(string h3Index)
+```
+**Sample Usage**
+```
+var resolution = DotNetH3.H3.GetResolution("891ec915c07ffff");
+
+//Returned value: resolution=9;
+```
+### ⚓ GetBaseCellNumber
+- Returns the base cell number of the index.
+- One of the 122 H3 cells (110 hexagons and 12 pentagons) of resolution 0.
+- Every other cell in H3 is a child of a base cell.
+- Each base cell has a "base cell number" (0--121), which is encoded into the H3Index representation of every H3 cell.
+```
+int GetBaseCellNumber(string h3Index)
+```
+**Sample Usage**
+```
+var baseCellNumber= DotNetH3.H3.GetBaseCellNumber("891ec915c07ffff");
+
+//Returned value: baseCellNumber=15;
+```
+### ⚓ StringToH3
+- Converts the string representation to H3Index.
+```
+H3Index? StringToH3(string h3Index)
+```
+**Sample Usage**
+```
+var h3IndexObject= DotNetH3.H3.StringToH3("891ec915c07ffff");
+```
+### ⚓ H3ToString
+- Converts the H3Index representation of the index to the string representation.
+```
+string H3ToString(H3Index h3Index)
+```
+**Sample Usage**
+```
+var h3Index= DotNetH3.H3.H3ToString(h3IndexObject);
+
+//Returned value: h3Index="891ec915c07ffff";
+```
+### ⚓ IsValidCell
+- Validates cell.
+```
+bool IsValidCell(string h3Index)
+```
+**Sample Usage**
+```
+var isValid= DotNetH3.H3.IsValidCell("891ec915c07ffff");
+
+//Returned value: isValid=true;
+```
+### ⚓ IsPentagon
+- Checks the cell whether pentagon or hexagon.
+```
+bool IsPentagon(string h3Index)
+```
+**Sample Usage**
+```
+var isPentagon= DotNetH3.H3.IsPentagon("891ec915c07ffff");
+
+//Returned value: isValid=false;
+```
+### ⚓ GetIcosahedronFaces
+- Find all icosahedron faces intersected by a given H3 index and places them in the array out.
+
+- Faces are represented as integers from 0-19, inclusive. The array is sparse, and empty (no intersection) array values are represented by -1.
+```
+int[] GetIcosahedronFaces(string h3Index)
+```
+**Sample Usage**
+```
+var faces= DotNetH3.H3.GetIcosahedronFaces("891ec915c07ffff");
+```
+## 🔖 Traversal
+Grid traversal allows finding cells in the vicinity of an origin cell, and determining how to traverse the grid from one cell to another.
+
+### ⚓ GridDiskDistances
+- gridDisk produces indices within k distance of the origin index.
+
+- gridDisk was previously named k-ring after the concept of a ring with distance **k**. **k-ring** 0 is defined as the origin index, **k-ring 1** is defined as k-ring 0 and all neighboring indices, and so on.
+
+- Output is placed in the provided array in no particular order. Elements of the output array may be left as zero, which can happen when crossing a pentagon.
+
+```
+GeoJSON? GridDiskDistances(string h3Index, int k)
+```
+**Sample Usage**
+```
+var geoJSON = DotNetH3.H3.GridDiskDistances("891ec915c07ffff",2);
+```
+**Output**
+![N|Solid][grid-disk-distances]
+
+### ⚓ GridRing
+- Produces the hollow hexagonal ring centered at origin with sides of length k.
+```
+GeoJSON? GridRing(string h3Index, int k)
+```
+**Sample Usage**
+```
+var geoJSON = DotNetH3.H3.GridRing("891ec915c07ffff",2);
+```
+**Output**
+![N|Solid][grid-ring]
+
+### ⚓ GridDistance
+- Provides the distance in grid cells between the two indexes.
+```
+int GridDistance(string h3Index, string h3OtherIndex)
+```
+**Sample Usage**
+```
+var distance= DotNetH3.H3.GridDistance("891ec915c1bffff","891ec915c37ffff");
+
+//Returned value: distance=4;
+```
+### ⚓ GridPathCell
+- Given two H3 indexes, return the line of indexes between them (inclusive).
+- This function may fail to find the line between two indexes, for example if they are very far apart. It may also fail when finding distances for indexes on opposite sides of a pentagon.
+```
+GeoJSON? GridPathCell(string h3Index, string h3OtherIndex)
+```
+**Sample Usage**
+```
+var geoJSON = DotNetH3.H3.GridPathCell("891ec915c1bffff","891ec915c37ffff")
+```
+**Output**
+![N|Solid][grid-path-cell]
+
+## 🔖 Hierarchical
+These functions permit moving between resolutions in the H3 grid system. The functions produce parent cells (coarser), or child cells (finer).
+
+### ⚓ CellToParent
+- Provides the parent (coarser) index containing cell.
+```
+Feature? CellToParent(string h3Index, int resolution)
+```
+**Sample Usage**
+```
+var parent = DotNetH3.H3.CellToParent("891ec915c07ffff",7);
+```
+**Output**
+![N|Solid][parent]
+
+### ⚓ CellToCenterChild
+- Provides the center child (finer) index contained by cell at resolution.
+```
+Feature? CellToCenterChild(string h3Index, int resolution)
+```
+**Sample Usage**
+```
+var centerChild = DotNetH3.H3.CellToCenterChild("891ec915c07ffff",9)
+```
+**Output**
+![N|Solid][center-child]
+
+### ⚓ CellToChildren
+- Populates children with the indexes contained by cell at resolution. 
+```
+GeoJSON? CellToChildren(string h3Index, int resolution)
+```
+**Sample Usage**
+```
+var childrenCells=DotNetH3.H3.CellToChildren("891ec915c07ffff",10);
+```
+**Output**
+![N|Solid][children]
+
+## 🔖 Region
+Convert H3 indexes to and from polygonal areas.
+
+### ⚓ PolygonToCells
+- Takes a given coordinate list of polygon preallocated, zeroed memory, and fills it with the hexagons that are contained by the polygon.
+```
+GeoJSON? PolygonToCells(List<LatLong> coordinates, int resolution, int vertexMode)
+```
+**Sample Usage**
+```
+var feature=DotNetH3.H3.CellToParent("891ec915c07ffff",7);
+List<LatLong> coordinates = new List<LatLong>();
+for (int i = 0; i < ((Polygon)(feature.geometry)).coordinates[0].Count; i++)
 {
-    "type": "Feature",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-73.9857, 40.7484]
-    },
-    "properties": {
-        "name": "Empire State Building",
-        "address": "350 5th Ave, New York, NY 10118"
-    }
+    coordinates.Add(new LatLong(((Polygon)(feature.geometry)).coordinates[0][i][1],
+        ((Polygon)(feature.geometry)).coordinates[0][i][0]));
 }
+//The code above was written to create a sample polygon coordinate list.
+
+var region=JsonSerializer.Serialize(DotNetH3.H3.PolygonToCells(coordinates,9,vertexMode:0));
 ```
-- You can use the following code block to create the above GeoJSON output in your code;
-```
-var geoJson = new GeoJSON();
-
-var properties = new { name = "Empire State Building", address = "address", };
-
-var geometry = new Point(-73.9857, 40.7484);
-
-geoJson.features.Add(new Feature(geometry, properties));
-
-if (geoJson.IsValid())
-  return geoJson.GetAsFeature();
-
-return null;
-```
-- **A GeoJSON** object with the type **"FeatureCollection"** is a **FeatureCollection** object. A **FeatureCollection** object has a member with the name **"features"**. The value of **"features"** is a JSON array. Each element of the array is a **Feature** object as defined above. It is possible for this array to be empty.**
-```
-var geoJson = new GeoJSON();
-
-var properties = new { name = "Empire State Building", address = "address", };
-
-var geometry = new Point(-73.9857, 40.7484);
-
-geoJson.features.Add(new Feature(geometry, properties));
-
-if (geoJson.IsValid())
-  return geoJson; //This is the only line different from the code block above.
-
-return null;
-```
-#### Point GeoJSON Validation
-- Each Point must have at least 2 double values in the List<double> coordinates property.
-  
-```
-public override bool IsValid()
-{
-  return coordinates.Count >= 2;
-}
-```
-
-### 2. MultiPoint
-- An array of multiple Point objects.
-- ✖️ Not Supported By DotNet-GeoJSON (Coming Soon)<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/SFA_MultiPoint.svg/102px-SFA_MultiPoint.svg.png)
-- Here is an example of a GeoJSON file that represents a MultiPoint feature with three points:
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "MultiPoint",
-        "coordinates": [
-            [-73.9857, 40.7484],
-            [-118.2437, 34.0522],
-            [-87.6298, 41.8781]
-        ]
-    },
-    "properties": {
-        "name": "Three Cities",
-        "city1": "New York",
-        "city2": "Los Angeles",
-        "city3": "Chicago"
-    }
-}
-```
-- In this example, the MultiPoint feature represents three cities, New York, Los Angeles and Chicago, each represented by a set of coordinates (longitude, latitude). The "coordinates" field of the "geometry" object contains an array of multiple sets of coordinates, one for each point. The "properties" field can contain any additional information about the feature, in this case the name of the cities.
-
-### 3. LineString
-- A line connecting two or more points represented by an array of coordinates.
-- ✔️ Supported By DotNet-GeoJSON<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/SFA_LineString.svg/102px-SFA_LineString.svg.png)
-- Here is an example of a GeoJSON file that represents a LineString feature that connects two points:
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "LineString",
-        "coordinates": [
-            [-73.9857, 40.7484],
-            [-118.2437, 34.0522]
-        ]
-    },
-    "properties": {
-        "name": "Route from New York to Los Angeles",
-        "distance": "3000 km"
-    }
-}
-```
-- In this example, the LineString feature represents a route from New York to Los Angeles, and it is defined by an array of coordinates (longitude, latitude). The "coordinates" field of the "geometry" object contains an array of multiple sets of coordinates, one for each point in the line. The "properties" field can contain any additional information about the feature, in this case the name of the route and the distance.
-- You can use the following code block to create the above GeoJSON output in your code;
-```
-var geoJson = new GeoJSON();
-
-var properties = new { name = "Route from New York to Los Angeles", distance = "3000 km" };
-
-var points = new List<Point>();
-points.Add(new Point(-73.9857, 40.7484));
-points.Add(new Point(-118.243, 34.0522));
-
-var geometry = new LineStrings(points);
-
-geoJson.features.Add(new Feature(geometry, properties));
-
-if (geoJson.IsValid())
-  return geoJson.GetAsFeature();
-
-return null;
-```
-You can also have a more complex LineString with multiple segments:
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "LineString",
-        "coordinates": [
-            [-73.9857, 40.7484],
-            [-118.2437, 34.0522],
-            [-87.6298, 41.8781]
-        ]
-    },
-    "properties": {
-        "name": "Route from New York to Los Angeles to Chicago",
-        "distance": "4000 km"
-    }
-}
-```
-- In this example, the LineString feature represents a route from New York to Los Angeles to Chicago, and it is defined by an array of coordinates (longitude, latitude). The "coordinates" field of the "geometry" object contains an array of multiple sets of coordinates, one for each point in the line, in this case three points that represents the three cities. The "properties" field can contain any additional information about the feature, in this case the name of the route and the distance.
-
-#### LineString GeoJSON Validation
-- For type "LineString", the "coordinates" member is an array of two or more positions.
-  
-```
-public override bool IsValid()
-{
-  if (coordinates.Count >= 2)
-    return coordinates.All(t => t.Count >= 2);
-  return false;
-}
-```
-  
-### 4. MultiLineString
-- An array of multiple LineString objects.
-- ✖️ Not Supported By DotNet-GeoJSON (Coming Soon)<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/SFA_MultiLineString.svg/102px-SFA_MultiLineString.svg.png)
-- Here is an example of a GeoJSON file that represents a MultiLineString feature with two LineString objects:
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "MultiLineString",
-        "coordinates": [
-            [
-                [-73.9857, 40.7484],
-                [-118.2437, 34.0522]
-            ],
-            [
-                [-87.6298, 41.8781],
-                [-118.2437, 34.0522]
-            ]
-        ]
-    },
-    "properties": {
-        "name": "Routes from East Coast to West Coast",
-        "distance": "4000 km"
-    }
-}
-```
-- In this example, the MultiLineString feature represents two routes from the East Coast to the West Coast, one from New York to Los Angeles and another one from Chicago to Los Angeles. Both routes are defined by an array of coordinates (longitude, latitude). The "coordinates" field of the "geometry" object contains an array of multiple arrays of coordinates, one for each line. The "properties" field can contain any additional information about the feature, in this case the name of the route and the distance.
-
-- You can also have more complex MultiLineString where each linestring connects multiple points, in this case the coordinates field will be an array of arrays where each array represents a linestring with multiple coordinates.
-
-### 5. Polygon
-- A closed shape defined by an array of coordinates. The first and last coordinates must be the same to close the shape.
-- ✔️ Supported By DotNet-GeoJSON<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/SFA_Polygon.svg/102px-SFA_Polygon.svg.png)
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/SFA_Polygon_with_hole.svg/102px-SFA_Polygon_with_hole.svg.png)
-- Here is an example of a GeoJSON file that represents a Polygon feature that defines the shape of a park:
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-            [
-                [-73.9726, 40.7896],
-                [-73.9331, 40.7935],
-                [-73.9287, 40.7696],
-                [-73.9686, 40.7660],
-                [-73.9726, 40.7896]
-            ]
-        ]
-    },
-    "properties": {
-        "name": "Central Park",
-        "area": "341 ha"
-    }
-}
-```
-- In this example, the Polygon feature represents the shape of Central Park, and it is defined by an array of coordinates (longitude, latitude). The "coordinates" field of the "geometry" object contains an array of multiple sets of coordinates, one for each point that defines the shape of the park. The order of the coordinates is important and they should be arranged in a clockwise or counterclockwise direction, in this case the last point is the same as the first one in order to close the shape. The "properties" field can contain any additional information about the feature, in this case the name of the park and its area.
-
-- You can also have a polygon with an inner ring, called Hole, that is defined by a different set of coordinates and it will be represented as another array of coordinates within the coordinates field.
-
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-            [
-                [-73.9726, 40.7896],
-                [-73.9331, 40.7935],
-                [-73.9287, 40.7696],
-                [-73.9686, 40.7660],
-                [-73.9726, 40.7896]
-            ],
-            [
-                [-73.9648, 40.7740],
-                [-73.9555, 40.7772],
-                [-73.9535, 40.7712],
-                [-73.9628, 40.7683],
-                [-73.9648, 40.7740]
-            ]
-        ]
-    },
-    "properties": {
-        "name": "Central Park",
-        "area": "341 ha"
-    }
-}
-```
-- In this example, the Polygon feature represents the shape of Central Park, which includes an inner ring, that is a hole, that is defined by a different set of coordinates. The hole is defined by an array of coordinates within the coordinates field of the polygon.
-- You can use the following code block to create the above GeoJSON output in your code;
-```
-var geoJson = new GeoJSON();
-
-var properties = new { name = "Central Park", area = "341 ha" };
-
-//Outer Ring
-var points = new List<Point>();
-points.Add(new Point(-73.9726, 40.7896));
-points.Add(new Point(-73.9331, 40.7935));
-points.Add(new Point(-73.9287, 40.7696));
-points.Add(new Point(-73.9686, 40.7660));
-points.Add(new Point(-73.9726, 40.7896));
-
-var lineString = new LineStrings(points);
-
-var geometry = new Polygon(lineString);
-
-//Inner Ring
-points = new List<Point>();
-points.Add(new Point(-73.9648, 40.7740));
-points.Add(new Point(-73.9555, 40.7772));
-points.Add(new Point(-73.9535, 40.7712));
-points.Add(new Point(-73.9628, 40.7683));
-points.Add(new Point(-73.9648, 40.7740));
-
-lineString = new LineStrings(points);
-
-geometry.AddLinearRing(lineString);
-
-geoJson.features.Add(new Feature(geometry, properties));
-
-if (geoJson.IsValid())
-  return geoJson.GetAsFeature();
-
-return null;
-```
-#### Polygon GeoJSON Validation
-- To specify a constraint specific to Polygons, it is useful to introduce the concept of a linear ring:
-
-   o  A linear ring is a closed LineString with four or more positions.
-
-   o  The first and last positions are equivalent, and they MUST contain
-      identical values; their representation SHOULD also be identical.
-
-   o  A linear ring is the boundary of a surface or the boundary of a
-      hole in a surface.
-
-   o  A linear ring MUST follow the right-hand rule with respect to the
-      area it bounds, i.e., exterior rings are counterclockwise, and
-      holes are clockwise.
-  
-   o  For type "Polygon", the "coordinates" member MUST be an array of
-      linear ring coordinate arrays.
-
-   o  For Polygons with more than one of these rings, the first MUST be
-      the exterior ring, and any others MUST be interior rings.  The
-      exterior ring bounds the surface, and the interior rings (if
-      present) bound holes within the surface.
-  
-```
-public override bool IsValid()
-{
-  if (coordinates.Count < 1 || !coordinates.All(t => t.Count >= 3)) return false;
-  {
-    if (coordinates.All(t1 => t1.All(t => t.Count == 2)))
-      return coordinates.All(t => t[0][0] == t[t.Count - 1][0] && t[0][1] == t[t.Count - 1][1]);
-
-     return true;
-   }
-}
-```
-### 6. MultiPolygon
-- An array of multiple Polygon objects.
-- ✔️ Supported By DotNet-GeoJSON<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/SFA_MultiPolygon.svg/102px-SFA_MultiPolygon.svg.png)
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/SFA_MultiPolygon_with_hole.svg/102px-SFA_MultiPolygon_with_hole.svg.png)
-- Here's an example of a GeoJSON Feature that contains a MultiPolygon geometry:
-```
-{
-    "type": "Feature",
-    "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": 
-        [
-             [
-                [
-                    [-117.3325, 32.6354],
-                    [-117.3325, 32.5354],
-                    [-117.2325, 32.5354],
-                    [-117.2325, 32.6354],
-                    [-117.3325, 32.6354]
-                ]
-            ],
-            [      
-                [
-                    [-118.3325, 33.6354],
-                    [-118.3325, 33.5354],
-                    [-118.2325, 33.5354],
-                    [-118.2325, 33.6354],
-                    [-118.3325, 33.6354]
-                ]
-            ]
-        ]
-    },
-    "properties": {
-        "name": "MultiPolygon Example"
-    }
-}
-```
-- In this example, the MultiPolygon geometry is made up of two polygons. The first polygon is represented by the first set of coordinates and the second polygon is represented by the second set of coordinates.
-- Each set of coordinates is enclosed in a nested array, with the outermost array representing the entire MultiPolygon geometry.
-- You can use the following code block to create the above GeoJSON output in your code;
-```
-var geoJson = new GeoJSON();
-
-var properties = new { name = "MultiPolygon Example"};
-
-//First Polygon
-var points = new List<Point>();
-points.Add(new Point(-117.3325, 32.6354));
-points.Add(new Point(-117.3325, 32.5354));
-points.Add(new Point(-117.2325, 32.5354));
-points.Add(new Point(-117.2325, 32.6354));
-points.Add(new Point(-117.3325, 32.6354));
-
-var polygon = new Polygon(new LineStrings(points));
-
-//Initialize MultiPolygon With At Least One Polygon
-var geometry = new MultiPolygon(polygon);
-
-//Second Polygon
-points = new List<Point>();
-points.Add(new Point(-118.3325, 33.6354));
-points.Add(new Point(-118.3325, 33.5354));
-points.Add(new Point(-118.2325, 33.5354));
-points.Add(new Point(-118.2325, 33.6354));
-points.Add(new Point(-118.3325, 33.6354));
-
-//Add second and many more polygons to your MultiPolygon
-polygon = new Polygon(new LineStrings(points));
-
-geometry.AddPolygon(polygon);
-
-geoJson.features.Add(new Feature(geometry, properties));
-
-if (geoJson.IsValid())
-  return geoJson.GetAsFeature();
-
-return null;
-```
-#### MultiPolygon GeoJSON Validation
-- For type "MultiPolygon", the "coordinates" member is an array of Polygon coordinate arrays.
-```
-public override bool IsValid()
-{
-  if (coordinates.Count >= 1 && coordinates.All(t => t.Count >= 1) &&
-      coordinates.All(t1 => t1.All(t => t.Count >= 3)))
-      if (coordinates.All(t2 => t2.All(t1 => t1.All(t => t.Count == 2))))
-      {
-          foreach (var t in coordinates)
-            if (t.Any(t1 => t1[0][0] != t1[t.Count - 1][0] || t1[0][1] != t1[t.Count - 1][1]))
-                return false;
-            return true;
-       }
-
-       return false;
-}
-```
-### 7. GeometryCollection
-- A collection of different types of geometries.
-- ✖️ Not Supported By DotNet-GeoJSON (Coming Soon)<br/><br/>
-![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/SFA_GeometryCollection.svg/102px-SFA_GeometryCollection.svg.png)
-- Here's an example of a GeoJSON Feature that contains a GeometryCollection geometry:
-```
-{
-    "type": "GeometryCollection",
-    "geometries": [
-        {
-            "type": "Point",
-            "coordinates": [40.0, 10.0]
-        },
-        {
-            "type": "LineString",
-            "coordinates": [
-                [10.0, 10.0], [20.0, 20.0], [10.0, 40.0]
-            ]
-        },
-        {
-            "type": "Polygon",
-            "coordinates": [
-                [[40.0, 40.0], [20.0, 45.0], [45.0, 30.0], [40.0, 40.0]]
-            ]
-        }
-    ]
-}
-```
-- In this example, the GeometryCollection geometry is made up of three different geometries: a Point, a LineString, and a Polygon. Each of these geometries is represented by a separate object within the "geometries" array.
-- A GeometryCollection is a GeoJSON object that can contain multiple other geometry objects of different types, making it a powerful way to represent complex geometries.
+**Output: vertexMode:0**
+![N|Solid][polygon-to-hexagon-0]
+**Output: vertexMode:1**
+![N|Solid][polygon-to-hexagon-1]
+**Output: vertexMode:2**
+![N|Solid][polygon-to-hexagon-2]
 
 ## Contributing
 
@@ -524,14 +320,28 @@ You can find the useful links regarding GeoJSON
 
 | Version | Date | Changes |
 | ------- | ---- | ------ |
-| v1.0.0  | Jan 26, 2023 | - First version is ready.|
+| v1.0.0  | Feb 8, 2023 | - First version is ready.|
   
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [geojson-io]: https://geojson.io/
 [rfc-page]: https://www.rfc-editor.org/rfc/rfc7946  
 [h3-index]: https://h3geo.org/ 
-
+[aggregation]: https://raw.githubusercontent.com/copurcihan/DotNet-H3-Spatial-Index/main/Files/Img/Aggregation.png 
+[hexagon]: https://h3geo.org/images/neighbors.png
+[cell-stats]: https://h3geo.org/docs/core-library/restable
+[h3-viewer]: https://wolf-h3-viewer.glitch.me/
+[binbin-hq]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/BinBinHeadquarter.png?raw=true
+[binbin-hq-geojson]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/PolygonH3.png?raw=true
+[grid-disk-distances]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/GridDiskDistances.png?raw=true
+[grid-ring]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/GridRing.png?raw=true
+[grid-path-cell]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/GridPathCell.png?raw=true
+[parent]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/Parent.png?raw=true
+[center-child]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/CenterChild.png?raw=true
+[children]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/Children.png?raw=true
+[polygon-to-hexagon-0]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/polygonToHexagon_0.png?raw=true
+[polygon-to-hexagon-1]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/polygonToHexagon_1.png?raw=true
+[polygon-to-hexagon-2]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/polygonToHexagon_2.png?raw=true
 
 
 
