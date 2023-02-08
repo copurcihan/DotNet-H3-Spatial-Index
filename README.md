@@ -342,3 +342,6 @@ You can find the useful links regarding GeoJSON
 [polygon-to-hexagon-0]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/polygonToHexagon_0.png?raw=true
 [polygon-to-hexagon-1]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/polygonToHexagon_1.png?raw=true
 [polygon-to-hexagon-2]: https://github.com/copurcihan/DotNet-H3-Spatial-Index/blob/main/Files/Img/polygonToHexagon_2.png?raw=true
+
+
+
